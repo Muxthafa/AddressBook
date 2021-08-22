@@ -1,5 +1,7 @@
 package com.assignment;
 
+import java.util.Scanner;
+
 public class AddressBook {
 		//Instance variables
 		private String firstname;
@@ -37,9 +39,45 @@ public class AddressBook {
 		}
 
 	public static void main(String[] args) {
-		System.out.println("Welcome to Adress Book System program"); //welcome message for the concerned program	
-		AddressBook addbook=new AddressBook("Mohammad","Musthafa","Agrahara Katapadi","Udupi","Karnataka","574105","7760219131","musthafa@gmail.com");	//Object creation
-		addbook.display(); //displaying the object created
+		System.out.println("Welcome to adress book program");	//welcome message for the concerned program
+		
+		Scanner sc=new Scanner(System.in);
+		
+		AddressBook[] contact=new AddressBook[10];  //array to store objects
+		System.out.println("Total number of contacts to add :");
+		int n=sc.nextInt();
+		System.out.println("Enter the details below");
+		String fname,lname,address,city,state,zip,phone,email;
+		
+		//for loop to add n contact details
+		for(int i=0;i<n;i++) 
+		{
+			System.out.println("Enter first Name:");
+			fname=sc.next();
+			System.out.println("Enter last name:");
+			lname=sc.next();
+			System.out.println("Enter the address:");
+			address=sc.next();
+			System.out.println("Enter the city name:");
+			city=sc.next();
+			System.out.println("Enter the name of state:");
+			state=sc.next();
+			System.out.println("zip:");
+			zip=sc.next();
+			System.out.println("Enter the contact number");
+			phone=sc.next();
+			System.out.println("E-mail address:");
+			email=sc.next();
+			contact[i]=new AddressBook(fname,lname,address,city,state,zip,phone,email);	//object creation for each contact
+			
+		}
+		
+		for(int i=0;i<n;i++)
+		{
+			System.out.println("Details of "+i+" person!!!");
+			contact[i].display(); //print details of each person
+			
+		}
 	}
 
 }
