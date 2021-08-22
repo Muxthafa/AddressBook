@@ -3,6 +3,7 @@ package com.assignment;
 import java.util.Scanner;
 
 public class AddressBook {
+	public static  int n=0;
 	//Instance variables
 	private String firstname;
 	private String lastname;
@@ -49,6 +50,25 @@ public class AddressBook {
 		this.phone_number=phone_number;
 		this.email=email;
 	}
+	//@method for deleting objects
+	public static void delete(int j,AddressBook[] person)
+	{
+		int i;
+		if(j==n-1)
+		{
+			person[j]=null;  //deletes the object
+		}
+		else
+		{
+			for(i=j;i<n-1;i++)
+			{
+				person[i]=person[i+1];
+			}
+			person[i]=null;   //deletes the object
+			 System.gc();
+		}
+		
+	}
 
 	public static void main(String[] args) {
 		System.out.println("Welcome to adress book program");	//welcome message for the concerned program
@@ -61,12 +81,12 @@ public class AddressBook {
 		//for loop to add n contact details
 		while(true)
 		{
-			System.out.println("Enter your choice\n1.add contact\n2.edit contact\n3.Display contact\n4.exit");
+			System.out.println("Enter your choice\n1.add contact\n2.edit contact\n3.Delete contact\n4.Display contact\n5.exit");
 			int ch=sc.nextInt();
 			switch(ch)
 			{
-			case 1:									//case to add contacts
-			
+			case 1:									
+				//case to add contacts
 				System.out.println("first Name:");
 				fname=sc.next();
 				System.out.println("last name:");
@@ -113,14 +133,25 @@ public class AddressBook {
 						}
 					}
 					break;
-				   
-			
-						
-			case 3: System.out.println("Enter the person's first name:");		//case to display a contact
+			case 3: System.out.println("Enter the person's first name:"); //case to delete the details of person
 					String name2=sc.next();
 					for (int j=0;j<n;j++)
-					{
+					{	
 						if(person[j].firstname.equals(name2))
+						{
+							delete(j,person);
+							n=n-1;
+						}
+					}
+					System.out.println("Details deleted");
+					break; 
+			
+						
+			case 4: System.out.println("Enter the person's first name:");		//case to display a contact
+					String name3=sc.next();
+					for (int j=0;j<n;j++)
+					{
+						if(person[j].firstname.equals(name3))
 						{
 							int c1=j;
 							person[c1].display();
@@ -129,7 +160,7 @@ public class AddressBook {
 					}
 				
 					break;
-			case 4: System.out.println("closing!!");
+			case 5: System.out.println("closing!!");
 					System.exit(0);
 					break;
 			}
