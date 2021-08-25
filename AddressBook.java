@@ -1,9 +1,11 @@
 package com.assignment;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AddressBook {
-	public static  int n=0;
+	public static ArrayList<AddressBook> person=new ArrayList<AddressBook>();  //collection class array list is used to store objects of address book
+	
 	//Instance variables
 	private String firstname;
 	private String lastname;
@@ -51,23 +53,9 @@ public class AddressBook {
 		this.email=email;
 	}
 	//@method for deleting objects
-	public static void delete(int j,AddressBook[] person)
+	public static void delete(AddressBook address_book)
 	{
-		int i;
-		if(j==n-1)
-		{
-			person[j]=null;  //deletes the object
-		}
-		else
-		{
-			for(i=j;i<n-1;i++)
-			{
-				person[i]=person[i+1];
-			}
-			person[i]=null;   //deletes the object
-			 System.gc();
-		}
-		
+		person.remove(address_book);	//remove is an inbuilt method to remove objects
 	}
 
 	public static void main(String[] args) {
@@ -75,13 +63,11 @@ public class AddressBook {
 		
 		Scanner sc=new Scanner(System.in);
 		
-		AddressBook[] person=new AddressBook[10];  //array to store objects
 		String fname,lname,address,city,state,zip,phone,email;
-		int n=0;
-		//for loop to add n contact details
+
 		while(true)
 		{
-			System.out.println("Enter your choice\n1.add contact\n2.edit contact\n3.Delete contact\n4.Display contact\n5.exit");
+			System.out.println("Enter your choice\n1.add contact\n2.edit contact\n3.Delete contact\n4.Display contact\n5.Display entire contact list\n6.exit");
 			int ch=sc.nextInt();
 			switch(ch)
 			{
@@ -103,15 +89,15 @@ public class AddressBook {
 				phone=sc.next();
 				System.out.println("E-mail:");
 				email=sc.next();
-				person[n]=new AddressBook(fname,lname,address,city,state,zip,phone,email);	//object creation
-				n++;
+				person.add(new AddressBook(fname,lname,address,city,state,zip,phone,email));	//object creation
 				break;
 			
 			case 2:System.out.println("Enter the person's first name : ");		//case to edit contacts
 					String name=sc.next();
-					for (int j=0;j<n;j++)
+					for (int j=0;j<person.size();j++)
 					{
-						if(person[j].firstname.equals(name))
+						AddressBook address_book = person.get(j);		//get method takes an index to look for an object in collection list
+						if(address_book.firstname.equals(name))
 						{
 							System.out.println("Enter first Name:");
 							fname=sc.next();
@@ -129,18 +115,18 @@ public class AddressBook {
 							phone=sc.next();
 							System.out.println("E-mail address:");
 							email=sc.next();
-							person[j].edit(fname,lname,address,city,state,zip,phone,email);
+							address_book.edit(fname,lname,address,city,state,zip,phone,email);
 						}
 					}
 					break;
 			case 3: System.out.println("Enter the person's first name:"); //case to delete the details of person
 					String name2=sc.next();
-					for (int j=0;j<n;j++)
+					for (int j=0;j<person.size();j++)
 					{	
-						if(person[j].firstname.equals(name2))
+						AddressBook address_book=person.get(j);				//get method takes an index to look for an object in collection list
+						if(address_book.firstname.equals(name2))
 						{
-							delete(j,person);
-							n=n-1;
+							delete(address_book);
 						}
 					}
 					System.out.println("Details deleted");
@@ -149,18 +135,31 @@ public class AddressBook {
 						
 			case 4: System.out.println("Enter the person's first name:");		//case to display a contact
 					String name3=sc.next();
-					for (int j=0;j<n;j++)
+					for (int j=0;j<person.size();j++)
 					{
-						if(person[j].firstname.equals(name3))
+						AddressBook address_book=person.get(j);					//get method takes an index to look for an object in collection list
+						if(address_book.firstname.equals(name3))
 						{
-							int c1=j;
-							person[c1].display();
+							
+							address_book.display();
+						
 						}
 					   
 					}
 				
 					break;
-			case 5: System.out.println("closing!!");
+			case 5:	if(person.size()==0)	//to display all the contacts of the address book
+					{
+						System.out.println("No Contacts available");
+					}
+					for(int j=0;j<person.size();j++)
+					{
+						AddressBook address_book=person.get(j);
+						System.out.println("Contact details of person"+j);
+						address_book.display();
+					}
+					break;
+			case 6: System.out.println("closing!!");
 					System.exit(0);
 					break;
 			}
