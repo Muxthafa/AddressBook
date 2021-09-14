@@ -37,8 +37,17 @@ public class AddressBook {
 	
 	//@method to insert person details to specific address book
 	public void insertContact() {
-		System.out.println("first Name:");
-		firstname=sc.next();
+		
+		while(true)
+		{
+			System.out.println("first Name:");
+			firstname=sc.next();
+			if(duplicateCheck(firstname) == true) {
+				continue;						// if there is duplicate then user is asked to enter name again
+			}else {
+				break;
+			}
+		}
 		System.out.println("last name:");
 		lastname=sc.next();
 		System.out.println("address:");
@@ -56,16 +65,33 @@ public class AddressBook {
 		person.add(new AddressBook(firstname,lastname,address,city,state,zip,phone_number,email));	//object creation
 	}
 	
+	/**
+	 * @method returns true if first name is duplicate 
+	 * @param fName
+	 * @return boolean
+	 */
+	public boolean duplicateCheck(String fName) {
+		for(AddressBook name : person) {
+			if(name.firstname.equalsIgnoreCase(fName)) {
+				System.out.println("Contact exists!!");
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	//@method for displaying attributes
 	public void display()
 	{
 		System.out.println("Enter the person's first name:");		//case to display a contact
 		String name3=sc.next();
+		int flag =0;
 		for (int j=0;j<person.size();j++)
 		{
 			AddressBook address_book=person.get(j);					//get method takes an index to look for an object in collection list
 			if(address_book.firstname.equals(name3))
 			{
+				flag=1;
 				System.out.println("First Name: "+firstname);
 				System.out.println("Last Name: "+lastname);
 				System.out.println("Address: "+address);
@@ -77,6 +103,9 @@ public class AddressBook {
 			
 			}
 		   
+		}
+		if(flag==0) {
+			System.out.println("Contact not found!");
 		}
 		
 	}
@@ -113,32 +142,56 @@ public class AddressBook {
 	{
 		System.out.println("Enter the person whose contact to be edited");	//to edit existing address
 		String name=sc.next();
-			for (int j=0;j<person.size();j++)
+		int flag=0;
+		for (int j=0;j<person.size();j++)
+		{
+		    AddressBook tempObject=person.get(j);
+			if(tempObject.firstname.equals(name))
 			{
-				AddressBook address_book=person.get(j);
-				if(address_book.firstname.equals(name))
-				{
-					
-					System.out.println("Enter first Name:");
-					address_book.firstname=sc.next();
-					System.out.println("Enter last name:");
-					address_book.lastname=sc.next();
-					System.out.println("Enter the address:");
-					address_book.address=sc.next();
-					System.out.println("Enter the city:");
-					address_book.city=sc.next();
-					System.out.println("Enter the state:");
-					address_book.state=sc.next();
-					System.out.println("Enter zip:");
-					address_book.zip=sc.next();
-					System.out.println("Enter the phone number:");
-					address_book.phone_number=sc.next();
-					System.out.println("E-mail address:");
-					address_book.email=sc.next();
-					
-				}
+			    flag=1;
+				System.out.println("first Name:"+tempObject.firstname);
+				System.out.println("last name:"+tempObject.lastname);
+				System.out.println("address:"+tempObject.address);
+				System.out.println("city:"+tempObject.city);
+				System.out.println("state:"+tempObject.state);
+				System.out.println("zip:"+tempObject.zip);
+				System.out.println("phone number:"+tempObject.phone_number);
+				System.out.println("E-mail:"+tempObject.email);	
+				System.out.println("Enter the number which you want to edit\n1.first name\n2.last name\n3.address\n4.city\n5.state\n6.zip\n7.phone number\n8.email");
+                int choose = sc.nextInt();
+                switch(choose){
+                    case 1: System.out.println("first name:");
+                        tempObject.firstname=sc.next();
+                        break;
+                    case 2: System.out.println("last name:");
+                        tempObject.lastname=sc.next();
+                        break;
+                    case 3: System.out.println("address:");
+                        tempObject.address=sc.next();
+                        break;
+                    
+                    case 4: System.out.println("city:");
+                        tempObject.city=sc.next();
+                        break;
+                    case 5: System.out.println("state:");
+                        tempObject.state=sc.next();
+                        break;
+                    case 6: System.out.println("zip:");
+                        tempObject.zip=sc.next();
+                        break;
+                    case 7: System.out.println("phone_number:");
+                        tempObject.phone_number=sc.next();
+                        break;
+                    case 8: System.out.println("email:");
+                        tempObject.email=sc.next();
+                        break;
+                }
 			}
+		}	
+		if(flag==0)
+            System.out.println("Contact not found!!!");
 	}
+	
 	//@method for deleting objects
 	public void delete()
 	{
