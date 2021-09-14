@@ -124,7 +124,7 @@ public class AddressBook {
 			for(int j=0;j<person.size();j++)
 			{
 				AddressBook object=person.get(j);
-				System.out.println("Contact details of person"+j);
+				System.out.println("Contact details of person "+j);
 				System.out.println("first Name:"+object.firstname);
 				System.out.println("last name:"+object.lastname);
 				System.out.println("address:"+object.address);
@@ -209,5 +209,21 @@ public class AddressBook {
 			}
 		}	
 	}
+	
+	/**
+	 * @method to search for city or state
+	 * @param place
+	 */
+    public void search(String name) {
+        for (int j=0;j<person.size();j++)
+        {   
+            AddressBook object=person.get(j);
+            if(object.city.equalsIgnoreCase(name) || object.state.equalsIgnoreCase(name))
+            {
+                System.out.println(object.firstname+" "+object.lastname);  
+            }
+        }
+        
+    }
 
 }

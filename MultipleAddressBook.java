@@ -1,6 +1,8 @@
 package com.assignment;
 
+import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Map;
 import java.util.Scanner;
 
 public class MultipleAddressBook {
@@ -34,7 +36,7 @@ public class MultipleAddressBook {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner sc=new Scanner(System.in);
-		Hashtable<String,AddressBook>  multipleAddressBook = new Hashtable<String, AddressBook>();  //dictionary for mapping different address book with key 
+		Map<String,AddressBook>  multipleAddressBook = new HashMap<String, AddressBook>();  //dictionary for mapping different address book with key 
 		AddressBook address_book=new AddressBook();					//first address book object
 		
 		String n="";
@@ -43,7 +45,7 @@ public class MultipleAddressBook {
 		
 		while(true)
 		{
-			System.out.println("Enter your choice\n1.add contact\n2.edit contact\n3.Delete contact\n4.Display contact\n5.Display addressbook\n6.Create another address book\n7.exit"); //options for different actions
+			System.out.println("Enter your choice\n1.add contact\n2.edit contact\n3.Delete contact\n4.Display contact\n5.Display addressbook\n6.Create another address book\n7.Search for a city or state\n8.exit"); //options for different actions
 			int choice=sc.nextInt();
 			if(choice==6)  //to create a new address book
 			{
@@ -53,7 +55,17 @@ public class MultipleAddressBook {
 				multipleAddressBook.put(n, object1);
 					
 			}
-			else if(choice==7)				//to exist from the program
+			else if(choice==7)
+			{
+			    System.out.println("Enter the name of city or state");
+			    String place=sc.next();
+			    for(Map.Entry<String, AddressBook> entry : multipleAddressBook.entrySet())
+			    {
+			        AddressBook tempObject=entry.getValue();
+			        tempObject.search(place);
+			    }  
+			}
+			else if(choice==8)				//to exist from the program
 				System.exit(0);
 			else
 			{
