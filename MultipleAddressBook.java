@@ -1,10 +1,16 @@
 package com.assignment;
 
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Map;
 import java.util.Scanner;
 
+/**
+ * Address book problem to perform various operation on address books
+ * MultipleAddressBook class contains multiple address book objects
+ * each address book has many contacts
+ * @author Mohammad Musthafa
+ *
+ */
 public class MultipleAddressBook {
 	
 	/*@method to perform some operation 
@@ -74,14 +80,14 @@ public class MultipleAddressBook {
 			    if(ch == 1) {
 			    	for(Map.Entry<String, AddressBook> mapEntry : multipleAddressBook.entrySet()) {
 			    		AddressBook tempObject = mapEntry.getValue();
-			    		System.out.println("AddressBook: "+mapEntry.getKey()+"\npersons by entered city are:\n");
+			    		System.out.println("AddressBook name: "+mapEntry.getKey()+"\npersons by cities are:");
 			    		tempObject.viewByCity();
 			    	}
 			    }
 			    else{
 			    	for(Map.Entry<String, AddressBook> mapEntry : multipleAddressBook.entrySet()) {
 			    		AddressBook tempObject = mapEntry.getValue();
-			    		System.out.println("AddressBook: "+mapEntry.getKey()+"\npersons by entered state are:\n");
+			    		System.out.println("AddressBook: "+mapEntry.getKey()+"\npersons by states are:");
 			    		tempObject.viewByState();
 			    	}
 			    }
