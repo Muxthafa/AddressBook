@@ -1,10 +1,13 @@
 package com.assignment;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class AddressBook {
-	public static ArrayList<AddressBook> person=new ArrayList<AddressBook>();  //collection class array list is used to store objects of address book
+	public ArrayList<AddressBook> person=new ArrayList<AddressBook>();  //collection class array list is used to store objects of address book
 	
 	public static Scanner sc=new Scanner(System.in);
 	//Instance variables
@@ -22,7 +25,17 @@ public class AddressBook {
 		System.out.println("Welcome to adress book program"); //welcome message
 	}
 			
-	//parameterized constructors initialized during object creation
+	/**
+	 * parameterized constructors initialized during object creation
+	 * @param firstname
+	 * @param lastname
+	 * @param address
+	 * @param city
+	 * @param state
+	 * @param zip
+	 * @param number
+	 * @param email
+	 */
 	public AddressBook(String firstname,String lastname,String address,String city,String state,String zip,String number,String email)
 	{
 		this.firstname=firstname;
@@ -35,7 +48,9 @@ public class AddressBook {
 		this.email=email;
 	}
 	
-	//@method to insert person details to specific address book
+	/**
+	 * @method to insert person details to specific address book
+	 */
 	public void insertContact() {
 		
 		while(true)
@@ -80,7 +95,9 @@ public class AddressBook {
 		return false;
 	}
 	
-	//@method for displaying attributes
+	/**
+	 * @method for displaying attributes
+	 */
 	public void display()
 	{
 		System.out.println("Enter the person's first name:");		//case to display a contact
@@ -110,7 +127,9 @@ public class AddressBook {
 		
 	}
 	
-	//@method to display all contents in the address book
+	/**
+	 * @method to display all contents in the address book
+	 */
 	public void display_addressbook()
 	{
 		if(person.size()==0)
@@ -137,7 +156,9 @@ public class AddressBook {
 		}
 	}
 	
-	//@method for editing details
+	/**
+	 * @method for editing details
+	 */
 	public void edit()
 	{
 		System.out.println("Enter the person whose contact to be edited");	//to edit existing address
@@ -192,7 +213,9 @@ public class AddressBook {
             System.out.println("Contact not found!!!");
 	}
 	
-	//@method for deleting objects
+	/**
+	 * @method for deleting objects
+	 */
 	public void delete()
 	{
 		System.out.println("Enter the person whose contact to be deleted");
@@ -225,5 +248,47 @@ public class AddressBook {
         }
         
     }
-
+    
+    public void viewByCity() {
+    	Map<String,List<String>> personsByCity = new HashMap<String,List<String>>();
+    	for (int i=0;i<person.size();i++) {
+    		AddressBook obj = person.get(i);
+    		String cityMap = obj.city;
+    		if(personsByCity.containsKey(cityMap)) {
+    			List<String> addPerson= personsByCity.get(cityMap);
+    			addPerson.add(obj.firstname);
+    			personsByCity.put(cityMap,addPerson);
+    		}else {
+    			List<String> temp=new ArrayList<>();
+                temp.add(obj.firstname);
+                personsByCity.put(cityMap, temp);
+    		}
+    	}
+    	for(Map.Entry m: personsByCity.entrySet()) {
+            
+            System.out.println(m.getKey()+" : "+m.getValue());
+        }
+    	
+    }
+    
+    public void viewByState() {
+    	Map<String,List<String>> personsByState = new HashMap<String,List<String>>();
+    	for (int i=0;i<person.size();i++) {
+    		AddressBook obj = person.get(i);
+    		String stateMap = obj.state;
+    		if(personsByState.containsKey(stateMap)) {
+    			List<String> addPerson= personsByState.get(stateMap);
+    			addPerson.add(obj.firstname);
+    			personsByState.put(stateMap,addPerson);
+    		}else {
+    			List<String> temp=new ArrayList<>();
+                temp.add(obj.firstname);
+                personsByState.put(stateMap, temp);
+    		}
+    	}
+    	for(Map.Entry m: personsByState.entrySet()) {
+            
+            System.out.println(m.getKey()+" : "+m.getValue());
+        }
+    }
 }

@@ -45,7 +45,7 @@ public class MultipleAddressBook {
 		
 		while(true)
 		{
-			System.out.println("Enter your choice\n1.add contact\n2.edit contact\n3.Delete contact\n4.Display contact\n5.Display addressbook\n6.Create another address book\n7.Search for a city or state\n8.exit"); //options for different actions
+			System.out.println("Enter your choice\n1.add contact\n2.edit contact\n3.Delete contact\n4.Display contact\n5.Display addressbook\n6.Create another address book\n7.Search for a city or state\n8.View persons by city or state\n9.exit"); //options for different actions
 			int choice=sc.nextInt();
 			if(choice==6)  //to create a new address book
 			{
@@ -65,13 +65,39 @@ public class MultipleAddressBook {
 			        tempObject.search(place);
 			    }  
 			}
-			else if(choice==8)				//to exist from the program
+			else if(choice==8)
+			{
+			    System.out.println("Enter the number 1 or 2\n"
+			    		+ "1.city\n"
+			    		+ "2.state");
+			    int ch=sc.nextInt();
+			    if(ch == 1) {
+			    	for(Map.Entry<String, AddressBook> mapEntry : multipleAddressBook.entrySet()) {
+			    		AddressBook tempObject = mapEntry.getValue();
+			    		System.out.println("AddressBook: "+mapEntry.getKey()+"\npersons by entered city are:\n");
+			    		tempObject.viewByCity();
+			    	}
+			    }
+			    else{
+			    	for(Map.Entry<String, AddressBook> mapEntry : multipleAddressBook.entrySet()) {
+			    		AddressBook tempObject = mapEntry.getValue();
+			    		System.out.println("AddressBook: "+mapEntry.getKey()+"\npersons by entered state are:\n");
+			    		tempObject.viewByState();
+			    	}
+			    }
+			}
+			else if(choice==9)				//to exist from the program
 				System.exit(0);
 			else
 			{
-				System.out.println("Enter the addressbook where you want to insert or modify the  contact!!");
-				n=sc.next();
-				choice(choice,multipleAddressBook.get(n));   //to perform required operation on desired address book
+				try{
+					System.out.println("Enter the addressbook name!!");
+					n=sc.next();
+					choice(choice,multipleAddressBook.get(n));   //to perform required operation on desired address book
+				}catch(Exception e) {
+					System.out.println("AddressBook not found!!");
+				}
+				
 			}		
 		}
 	}
