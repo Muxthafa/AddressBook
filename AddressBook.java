@@ -1,10 +1,12 @@
 package com.assignment;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 /**
  * This class has been taken as object to store contacts in each multiple
@@ -29,7 +31,7 @@ public class AddressBook {
 	private String email;
 
 	public AddressBook() {
-		System.out.println("Welcome to adress book program"); // welcome message
+		System.out.println("Welcome to Address Book program"); // welcome message
 	}
 
 	/**
@@ -300,5 +302,26 @@ public class AddressBook {
 			System.out.println("Total number of persons from state " + m.getKey() + " is: "
 					+ ((List<String>) m.getValue()).size());
 		}
+	}
+	
+	/**
+	 * @method to sort the entries based on person's name
+	 * java stream is used so that various methods can be pipelined to get desired result
+	 */
+	public void sortByName() {
+		List<AddressBook> sortedNames = new ArrayList<AddressBook>();
+		for(AddressBook contact : person) {
+			
+		}
+		sortedNames = person.stream()
+							.sorted(Comparator.comparing(a -> a.firstname))
+							.collect(Collectors.toList());
+		for(AddressBook p : sortedNames) {
+			System.out.println(p);
+		}
+	}
+	
+	public String toString() {
+		return "Firstname: "+firstname+"\n"+"Lastname: "+lastname+"\n"+"Address: "+address+"\n"+"City :"+city+"\n"+"State: "+state;
 	}
 }
