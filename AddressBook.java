@@ -305,19 +305,33 @@ public class AddressBook {
 	}
 	
 	/**
-	 * @method to sort the entries based on person's name
+	 * @method to sort the entries based on person's name, city, state or zip
 	 * java stream is used so that various methods can be pipelined to get desired result
 	 */
-	public void sortByName() {
+	public void sortByNameCityStateZip(int ch) {
 		List<AddressBook> sortedNames = new ArrayList<AddressBook>();
-		for(AddressBook contact : person) {
-			
+		
+		if(ch == 1) {
+			sortedNames = person.stream()
+					.sorted(Comparator.comparing(a -> a.firstname))
+					.collect(Collectors.toList());
+		}else if(ch == 2) {
+			sortedNames = person.stream()
+					.sorted(Comparator.comparing(a -> a.city))
+					.collect(Collectors.toList());
+		}else if(ch == 3) {
+			sortedNames = person.stream()
+					.sorted(Comparator.comparing(a -> a.state))
+					.collect(Collectors.toList());
+		}else {
+			sortedNames = person.stream()
+					.sorted(Comparator.comparing(a -> a.zip))
+					.collect(Collectors.toList());
 		}
-		sortedNames = person.stream()
-							.sorted(Comparator.comparing(a -> a.firstname))
-							.collect(Collectors.toList());
+		
 		for(AddressBook p : sortedNames) {
 			System.out.println(p);
+			System.out.println("------------------------");
 		}
 	}
 	
