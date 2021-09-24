@@ -1,5 +1,8 @@
 package com.assignment;
 
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -333,6 +336,37 @@ public class AddressBook {
 			System.out.println(p);
 			System.out.println("------------------------");
 		}
+	}
+	
+	/**
+	 * @method to read particular address book from file
+	 * @param fileName
+	 * @throws IOException
+	 */
+	public void readFromFile(String fileName) throws IOException {
+		FileReader file = new FileReader(fileName+".txt");
+		int read;
+		while((read = file.read()) != -1) {
+			System.out.print((char)read);
+		}
+	}
+	
+	/**
+	 * @method to write the address book into the file
+	 * @param fileName
+	 * @throws IOException
+	 */
+	public void writeIntoFile(String fileName) throws IOException {
+		FileWriter file = new FileWriter(fileName+".txt",true);
+		
+		for(int i=0;i<person.size();i++) {
+			AddressBook personObject = person.get(i);
+			file.write("\nFirst Name:"+personObject.firstname+"\nlastname:"+personObject.lastname+
+					"\naddress:"+personObject.address+"\ncity:"+personObject.city+"\nstate:"+personObject.state
+					+"\nzip:"+personObject.zip+"\nphone number:"+personObject.phone_number+"\nemail:"
+					+personObject.email+"\n");
+		}
+		file.close();
 	}
 	
 	public String toString() {

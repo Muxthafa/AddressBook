@@ -1,5 +1,6 @@
 package com.assignment;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -39,7 +40,7 @@ public class MultipleAddressBook {
 			
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 		Scanner sc=new Scanner(System.in);
 		Map<String,AddressBook>  multipleAddressBook = new HashMap<String, AddressBook>();  //dictionary for mapping different address book with key 
@@ -51,8 +52,9 @@ public class MultipleAddressBook {
 		
 		while(true)
 		{
-			System.out.println("Enter your choice\n1.add contact\n2.edit contact\n3.Delete contact\n4.Display contact\n5.Display addressbook\n6.Create another address book\n7.Search for a city or state\n8.View persons by city or state\n9.Sort by Name, City, State or zip\n10.exit"); //options for different actions
+			System.out.println("Enter your choice\n1.add contact\n2.edit contact\n3.Delete contact\n4.Display contact\n5.Display addressbook\n6.Create another address book\n7.Search for a city or state\n8.View persons by city or state\n9.Sort by Name, City, State or zip\n10.Read addressbook from the file\n11.write into the file\n12.exit"); //options for different actions
 			int choice=sc.nextInt();
+			sc.nextLine();
 			if(choice==6)  //to create a new address book
 			{
 				System.out.println("Enter the name of the addressbook");
@@ -108,7 +110,19 @@ public class MultipleAddressBook {
 			        System.out.println("-----------------------------------------------------------------");
 			    }  
 			}
-			else if(choice==9)				//to exist from the program
+			else if(choice==10) {
+				System.out.println("Enter the addressbook name:");
+				String addressbookName= sc.nextLine();
+				AddressBook addressbookReadFile = multipleAddressBook.get(addressbookName);
+				addressbookReadFile.readFromFile(addressbookName);
+			}
+			else if(choice==11) {
+				System.out.println("Enter the addressbook name:");
+				String addressbookName= sc.next();
+				AddressBook addressbookWriteFile = multipleAddressBook.get(addressbookName);
+				addressbookWriteFile.writeIntoFile(addressbookName);
+			}
+			else if(choice==12)				//to exist from the program
 				System.exit(0);
 			else
 			{
